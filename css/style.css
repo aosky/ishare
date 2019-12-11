@@ -81,7 +81,7 @@ a {
     width: 480px;
     height: 120px;
     margin: 20px auto;
-    background: url(icon/logo.svg) no-repeat center/cover;
+    background: url(https://i.loli.net/2019/12/11/y197LWBTbUEpYPF.png) no-repeat center/cover;
 }
 
 .con .shlogo a {
@@ -145,7 +145,7 @@ a {
     position: relative;
     width: calc(100% - 60px);
     min-width: 320px;
-    margin: 30px auto;
+    margin: 100px auto 30px auto;
     text-align: center;
 }
 
@@ -160,7 +160,7 @@ a {
 
 .con .ds .dsbtn {
     height: 40px;
-    margin: 0 auto;
+    margin: 20px 20px;
     display: flex;
     justify-content: center;
 }

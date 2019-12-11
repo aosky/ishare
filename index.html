@@ -16,7 +16,6 @@
     <link rel="icon" href="" type="image/x-icon" id="page_favionc">
     <link rel="alternate icon" type="image/png" href="icon.png">
     <link href="css/style.css" rel="stylesheet">
-	<script src="js/js.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js">
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="2ed8dffa-17cd-4bca-a387-72ec0e0fa92e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
     <script type="text/javascript"> 
@@ -38,8 +37,8 @@
             <div class="shlogo"></div>
             <div class="sou">
                 <div class="search">
-                    <input id="txtURL" class="wd" type="text" x-webkit-speech value="www.google.com" autofocus>
-                    <button id="btnGo"><i style="font-size: 20px;" class="iconfont icon-sousuo"></i></button>
+                    <input id="txtURL" class="wd" type="text" placeholder="请输入搜索内容或网址" autofocus>
+                    <button id="btnGo"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></button>
                 </div>                
             </div>
             <div class="soul">
@@ -53,7 +52,7 @@
 				</div>
 			</div>
         </div>
-        <div class="foot">© 2016-2019      <a href="https://zdl.im">  zdl.im  </a> . All rights reserved.</div>
+        <div class="foot">© 2016-2019 <a href="https://zdl.im">zdl.im</a> . All rights reserved.</div>
     </div>
   <!--天气插件开始-->
     <script>
@@ -90,7 +89,103 @@
     });
     tpwidget("show");
     </script>	
-
+<script>
+	const PAGE_CONF_SET = 110
+    const PAGE_CONF_GET = 111
+    const SW_CONF_RETURN = 112
+    const SW_CONF_CHANGE = 113
+    const PAGE_READY_CHECK = 200
+    const SW_READY = 201
+    const sw = navigator.serviceWorker
+    sw.addEventListener('message', onSwMsg)
+    sendMsgToSw(PAGE_READY_CHECK)
+    function popup(url) {
+      const link = document.createElement('a')
+      link.rel = 'noopener noreferrer'
+      link.href = url
+      link.click()
+    }
+    btnGo.onclick = function() {
+      const text = txtURL.value.trim()
+      if (text) {
+        popup('https://js.zdl.im/-----' + text)
+      }
+    }
+    txtURL.onkeypress = function(e) {
+      if (e.keyCode === 13) {
+        btnGo.onclick()
+      }
+    }
+    txtURL.setSelectionRange(0, txtURL.value.length)
+    function onSwMsg(e) {
+      const [cmd, msg] = e.data
+      switch (cmd) {
+      case SW_CONF_RETURN:
+        conf = msg
+        showConf()
+        break
+      case SW_CONF_CHANGE:
+        conf = msg
+        updateSelected()
+        break
+      case SW_READY:
+        console.log('sw ready')
+        showIcons()
+        sendMsgToSw(PAGE_CONF_GET)
+        break
+      }
+    }
+    function onSwFail(err) {
+      txtURL.value = err
+    }
+    selNode.onchange = function() {
+      const item = this.options[this.selectedIndex]
+      const node = item.value
+      conf.node_default = node
+      sendMsgToSw(PAGE_CONF_SET, conf)
+    }
+    function sendMsgToSw(cmd, val) {
+      const ctl = sw.controller
+      if (!ctl) {
+        console.log('ctl is null')
+        return
+      }
+      ctl.postMessage([cmd, val])
+    }
+    function showIcons() {
+      list.innerHTML = SITE_LIST.map(v => {
+        let [id, url] = v
+        url = url || `www.${id}.com/`
+        return `\
+<a rel="noopener noreferrer" href=https://js.zdl.im/-----https://${url}>\
+<img width=128 height=128 src=__sys__/assets/ico/${id}.png></a>`
+      }).join('')
+    }
+    function addNodeItem(id, text) {
+      const optEl = document.createElement('option')
+      optEl.id = '--' + id
+      optEl.text = text
+      optEl.value = id
+      selNode.appendChild(optEl)
+    }
+    function updateSelected() {
+      const id = conf.node_default
+      const item = document.getElementById('--' + id)
+      if (item) {
+        item.selected = true
+      } else {
+        console.warn('unknown node:', id)
+      }
+    }
+    function showConf() {
+      for (const [id, node] of Object.entries(conf.node_map)) {
+        if (!node.hidden) {
+          addNodeItem(id, node.label)
+        }
+      }
+      updateSelected()
+    }
+</script>
 <div class="qrcode" id="zhifubao">
     <img id="image" width="100%" height="100%" src="https://i.loli.net/2019/11/20/KYck6t4L9jsA7Z3.jpg">
 </div>
