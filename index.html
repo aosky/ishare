@@ -31,6 +31,34 @@
     </script>
 </head>
 <body>
+	<div id="menu"><i></i></div>
+    <div class="list closed">
+        <ul>
+          <!------>
+          	<li class="title">帮找说明</li>
+            打赏备注邮箱<br>
+            <form id="signup-form" method="post" action="/">
+			    <input type="email" name="tomail" id="tomail" placeholder="请输入邮箱地址" />
+			    <input type="submit" value="自动获取" />
+			</form>
+            
+            <li class="title">App下载</li>
+            <li><a rel="nofollow" href="https://mail.google.com/mail/u/0/#inbox" target="_blank">蓝奏云</a></li>
+            <li><a rel="nofollow" href="https://outlook.live.com/mail/" target="_blank">百度网盘</a></li>
+            <li><a rel="nofollow" href="https://mail.163.com/" target="_blank">Onedrive</a></li>
+            <li><a rel="nofollow" href="https://mail.sina.com.cn/" target="_blank">GoogleDrive</a></li>
+            <li><a rel="nofollow" href="https://mail.qq.com/" target="_blank">Dropbox</a></li>
+            <li class="title">常用网址</li>
+            <li><a rel="nofollow" href="https://www.zhihu.com/" target="_blank">知乎</a></li>
+            <li><a rel="nofollow" href="https://www.jianshu.com/" target="_blank">简书</a></li>
+            <li><a rel="nofollow" href="https://www.douban.com/" target="_blank">豆瓣</a></li>
+            <li><a rel="nofollow" href="https://www.github.com/" target="_blank">Github</a></li>
+            <li><a rel="nofollow" href="https://www.youtubecom/" target="_blank">Youtube</a></li>
+            <li><a rel="nofollow" href="https://www.91mjw.com/" target="_blank">看美剧</a></li>
+            <li><a rel="nofollow" href="https://tieba.baidu.com/" target="_blank">百度贴吧</a></li>
+            <li><a rel="nofollow" href="http://www.dililitv.com/" target="_blank">港台剧</a></li>
+        </ul>
+    </div>
  <div id="tp-weather-widget" class="mywth"></div>    
     <div id="content">
         <div class="con">
@@ -108,7 +136,7 @@
     btnGo.onclick = function() {
       const text = txtURL.value.trim()
       if (text) {
-        popup('https://js.zdl.im/-----' + text)
+        popup('https://web.freedaili.workers.dev/-----' + text)
       }
     }
     txtURL.onkeypress = function(e) {
@@ -157,7 +185,7 @@
         let [id, url] = v
         url = url || `www.${id}.com/`
         return `\
-<a rel="noopener noreferrer" href=https://js.zdl.im/-----https://${url}>\
+<a rel="noopener noreferrer" href=https://web.freedaili.workers.dev/-----https://${url}>\
 <img width=128 height=128 src=__sys__/assets/ico/${id}.png></a>`
       }).join('')
     }
