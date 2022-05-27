@@ -15,10 +15,10 @@
         <hr>
         <div id="main">
             <article v-for="item in getdata">
-                <a :href="item.img" target="_blank"><img :src="item.img" width="400px" /></a>
+                <a :href="item.img" target="_blank"><img :src="item.img" width="600px" /></a>
                 <p>{{ item.content }} @ {{ item.ctime }} By iPhone 12 mini</p>
+                <hr>
             </article>
-            <hr>
         </div>
         <script>
             var vm = new Vue({
