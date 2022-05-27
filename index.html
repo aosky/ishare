@@ -2,21 +2,23 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	<title>随手拍 by iPhone 12 mini</title>
+	<title>随手拍</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/x-icon" href="ico.jpg">
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	</head>
 	<body>
         <h2>随手拍</h2>
-        <p>使用iPhone捷径指令上传图片至GitHub，在deta.sh上搭建fastapi提供接口发布图片地址及配文到此页面。</p>
+        <p>使用iPhone捷径指令上传图片至GitHub，在deta.sh上搭建fastapi提供接口通过vue.js展示图片地址及配文到此页面。</p>
         <hr>
         <div id="main">
             <article v-for="item in getdata">
                 <a :href="item.img" target="_blank"><img :src="item.img" width="400px" /></a>
-                <p>{{ item.content }}@{{ item.ctime }}</p>
+                <p>{{ item.content }} @ {{ item.ctime }} By iPhone 12 mini</p>
             </article>
+            <hr>
         </div>
         <script>
             var vm = new Vue({
